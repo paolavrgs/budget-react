@@ -25,6 +25,11 @@ export default class Table extends React.Component {
     });
   }
 
+  removeItem(itemId) {
+    const itemRef = firebase.database().ref(`/items/${itemId}`);
+    itemRef.remove();
+  }
+
   render() {
     return (
       <table className="ui table">
@@ -35,7 +40,9 @@ export default class Table extends React.Component {
                 <td>{item.date}</td>
                 <td>{item.description}</td>
                 <td>{item.amount}</td>
-                <td></td>
+                <td className="field">
+                  <button className="ui icon button" onClick={() => this.removeItem(item.id)}><i className="trash icon"></i></button>
+                </td>
               </tr>
             )
           })}
