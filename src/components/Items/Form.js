@@ -53,6 +53,9 @@ export default class Form extends React.Component {
   }
 
   render () {
+    const options = this.state.categories.map(option =>
+      <option key={option.id} value={option.id}>{option.name}</option>
+    )
     return (
       <form className="ui form">
         <table className="ui single-line table">
@@ -75,15 +78,15 @@ export default class Form extends React.Component {
               </td>
               <td className="field">
                 <select name="category_id" onChange={this.handleChange} value={this.state.category_id} >
-                  {this.state.categories.map(cat => {
-                    return (
-                      <option key={cat.id} value={cat.id}>{cat.name}</option>
-                    )
-                  })}
+                  <option value="">Choose one</option>
+                  {options}
                 </select>
               </td>
               <td className="field">
-                <input type="text" name="amount" onChange={this.handleChange} value={this.state.amount} />
+                <div className="ui labeled input">
+                  <label for="amount" class="ui label">$</label>
+                  <input type="text" name="amount" onChange={this.handleChange} value={this.state.amount} />
+                </div>
               </td>
               <td className="field">
                 <button className="ui icon positive button" onClick={this.handleSubmit}><i className="paper plane icon"></i></button>

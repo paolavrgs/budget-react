@@ -63,7 +63,7 @@ export default class Table extends React.Component {
                 <td>{item.date}</td>
                 <td>{item.description}</td>
                 <td>{this.findCategory(item.category_id)}</td>
-                <td>{item.amount}</td>
+                <td>${item.amount}</td>
                 <td className="field">
                   <button className="ui icon button" onClick={() => this.removeItem(item.id)}><i className="trash icon"></i></button>
                 </td>

@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app ui container">
-        <h1>Agosto</h1>
+        <h1>Monthly expenses</h1>
         <CategoryForm />
         <Form />
         <Table />

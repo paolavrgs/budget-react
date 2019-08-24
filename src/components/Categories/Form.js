@@ -44,21 +44,32 @@ export default class CategoryForm extends React.Component {
     });
   }
 
+  removeItem(catID) {
+    const catRef = firebase.database().ref(`/categories/${catID}`);
+    catRef.remove();
+  }
+
   render () {
     return (
       <div className="ui segment">
         <form className="ui form">
-          <label>Categoría nueva</label>
-          <input type="name" name="name" onChange={this.handleChange} value={this.state.name} />
-          <button className="ui icon positive button" onClick={this.handleSubmit}><i className="paper plane icon"></i></button>
+          <div className="ui right labeled icon input">
+            <input type="name" name="name" onChange={this.handleChange} value={this.state.name} />
+            <a className="ui tag label" onClick={this.handleSubmit}> Add category</a>
+          </div>
         </form>
-        {this.state.categories.map(cat => {
-          return (
-            <div key={cat.id}>
-              <h5>{cat.name}</h5>
-            </div>
-          )
-        })}
+        <div className="ui list divided middle aligned">
+          {this.state.categories.map(cat => {
+            return (
+              <div key={cat.id} className="item">
+                <div className="content right floated">
+                  <button className="ui icon button" onClick={() => this.removeItem(cat.id)}><i className="trash icon"></i></button>
+                </div>
+                <div className="content">{cat.name}</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
