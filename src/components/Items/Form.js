@@ -4,7 +4,9 @@ export default class Form extends React.Component {
   state = {
     date: new Date(),
     description: '',
-    amount: 0
+    amount: 0,
+    category_id: '',
+    categories: []
   }
 
   handleChange = (e) => {
@@ -19,7 +21,8 @@ export default class Form extends React.Component {
     const item = {
       date: this.state.date,
       description: this.state.description,
-      amount: this.state.amount
+      amount: this.state.amount,
+      category_id: this.state.category_id
     }
 
     itemsRef.push(item);
@@ -27,7 +30,25 @@ export default class Form extends React.Component {
     this.setState({
       date: new Date(),
       description: '',
-      amount: 0
+      amount: 0,
+      category_id: ''
+    });
+  }
+
+  componentDidMount() {
+    const catRef = firebase.database().ref('categories');
+    catRef.on('value', (snapshot) => {
+      let categories = snapshot.val();
+      let newState = [];
+      for (let cat in categories) {
+        newState.push({
+          id: cat,
+          name: categories[cat].name
+        });
+      }
+      this.setState({
+        categories: newState
+      });
     });
   }
 
@@ -39,6 +60,7 @@ export default class Form extends React.Component {
             <tr>
               <th>Date</th>
               <th>Description</th>
+              <th>Category</th>
               <th>Amount</th>
               <th></th>
             </tr>
@@ -50,6 +72,15 @@ export default class Form extends React.Component {
               </td>
               <td className="field">
                 <input name="description" onChange={this.handleChange} value={this.state.description} />
+              </td>
+              <td className="field">
+                <select name="category_id" onChange={this.handleChange} value={this.state.category_id} >
+                  {this.state.categories.map(cat => {
+                    return (
+                      <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    )
+                  })}
+                </select>
               </td>
               <td className="field">
                 <input type="text" name="amount" onChange={this.handleChange} value={this.state.amount} />

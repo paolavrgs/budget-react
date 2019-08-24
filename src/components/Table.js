@@ -3,7 +3,8 @@ import firebase from 'firebase';
 
 export default class Table extends React.Component {
   state = {
-    items: []
+    items: [],
+    categories: []
   }
 
   componentDidMount() {
@@ -16,13 +17,35 @@ export default class Table extends React.Component {
           id: item,
           date: items[item].date,
           description: items[item].description,
-          amount: items[item].amount
+          amount: items[item].amount,
+          category_id: items[item].category_id
         });
       }
       this.setState({
         items: newState
       });
     });
+
+
+    const catRef = firebase.database().ref('categories');
+    catRef.on('value', (snapshot) => {
+      let categories = snapshot.val();
+      let newState = [];
+      for (let cat in categories) {
+        newState.push({
+          id: cat,
+          name: categories[cat].name
+        });
+      }
+      this.setState({
+        categories: newState
+      });
+    });
+  }
+
+  findCategory(category_id) {
+    var categoryFound = this.state.categories.filter((category) => category.id === category_id)
+    return categoryFound[0].name
   }
 
   removeItem(itemId) {
@@ -39,6 +62,7 @@ export default class Table extends React.Component {
               <tr key={item.id}>
                 <td>{item.date}</td>
                 <td>{item.description}</td>
+                <td>{this.findCategory(item.category_id)}</td>
                 <td>{item.amount}</td>
                 <td className="field">
                   <button className="ui icon button" onClick={() => this.removeItem(item.id)}><i className="trash icon"></i></button>
