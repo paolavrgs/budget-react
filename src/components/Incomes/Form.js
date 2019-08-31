@@ -5,8 +5,7 @@ export default class Form extends React.Component {
     date: new Date(),
     description: '',
     amount: 0,
-    category_id: '',
-    categories: []
+    category_id: ''
   }
 
   handleChange = (e) => {
@@ -17,45 +16,23 @@ export default class Form extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const itemsRef = firebase.database().ref('items');
-    const item = {
+    const incomesRef = firebase.database().ref('incomes');
+    const income = {
       date: this.state.date,
       description: this.state.description,
       amount: this.state.amount,
-      category_id: this.state.category_id
     }
 
-    itemsRef.push(item);
+    incomesRef.push(income);
 
     this.setState({
       date: new Date(),
       description: '',
-      amount: 0,
-      category_id: ''
-    });
-  }
-
-  componentDidMount() {
-    const catRef = firebase.database().ref('categories');
-    catRef.on('value', (snapshot) => {
-      let categories = snapshot.val();
-      let newState = [];
-      for (let cat in categories) {
-        newState.push({
-          id: cat,
-          name: categories[cat].name
-        });
-      }
-      this.setState({
-        categories: newState
-      });
+      amount: 0
     });
   }
 
   render () {
-    const options = this.state.categories.map(option =>
-      <option key={option.id} value={option.id}>{option.name}</option>
-    )
     return (
       <form className="ui form">
         <table className="ui single-line table">
@@ -63,7 +40,6 @@ export default class Form extends React.Component {
             <tr>
               <th>Date</th>
               <th>Description</th>
-              <th>Category</th>
               <th>Amount</th>
               <th></th>
             </tr>
@@ -77,14 +53,8 @@ export default class Form extends React.Component {
                 <input name="description" onChange={this.handleChange} value={this.state.description} />
               </td>
               <td className="field">
-                <select name="category_id" onChange={this.handleChange} value={this.state.category_id} >
-                  <option value="">Choose one</option>
-                  {options}
-                </select>
-              </td>
-              <td className="field">
                 <div className="ui labeled input">
-                  <label for="amount" class="ui label">$</label>
+                  <label for="amount" className="ui label">$</label>
                   <input type="text" name="amount" onChange={this.handleChange} value={this.state.amount} />
                 </div>
               </td>
