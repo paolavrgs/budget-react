@@ -1,25 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Form from './components/Items/Form';
-import CategoryForm from './components/Categories/Form';
-import Table from './components/Table';
-import setDBConfig from './data/firebase';
-import styles from './components/App.css';
+import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
+import Notfound from './components/NotFound'
+import App from './components/App';
+import CategoriesPage from './pages/CategoriesPage';
+import IncomesPage from './pages/IncomesPage';
+import ExpensesPage from './pages/ExpensesPage';
 
-setDBConfig()
-
-class App extends React.Component {
-
-  render() {
-    return (
-      <div className="app ui container">
-        <h1>Monthly expenses</h1>
-        <CategoryForm />
-        <Form />
-        <Table />
+const routing = (
+  <Router>
+    <div>
+      <div className="ui list app-sidebar">
+        <div className="item">
+          <i className="home icon"></i>
+          <div className="content">
+            <Link to="/">Home</Link>
+          </div>
+        </div>
+        <div className="item">
+          <i className="tags icon"></i>
+          <div className="content">
+            <Link to="/categories">Categories</Link>
+          </div>
+        </div>
+        <div className="item">
+          <i className="sign-in icon"></i>
+          <div className="content">
+            <Link to="/incomes">Incomes</Link>
+          </div>
+        </div>
+        <div className="item">
+          <i className="sign-out icon"></i>
+          <div className="content">
+            <Link to="/expenses">Expenses</Link>
+          </div>
+        </div>
       </div>
-    )
-  }
-}
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/categories" component={CategoriesPage} />
+        <Route path="/incomes" component={IncomesPage} />
+        <Route path="/expenses" component={ExpensesPage} />
+        <Route component={Notfound} />
+      </Switch>
+    </div>
+  </Router>
+)
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(routing, document.getElementById('root'));
