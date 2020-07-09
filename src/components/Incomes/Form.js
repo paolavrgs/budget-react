@@ -59,7 +59,7 @@ export default class Form extends React.Component {
                 </div>
               </td>
               <td className="field">
-                <button className="ui icon positive button" onClick={this.handleSubmit}><i className="paper plane icon"></i></button>
+                <button className="ui icon positive button" onClick={this.handleSubmit}><i className="paper plane icon"></i>Add</button>
               </td>
             </tr>
           </tbody>

@@ -51,26 +51,24 @@ export default class CategoryForm extends React.Component {
 
   render () {
     return (
-      <div className="app">
-        <div className="ui segment">
-          <form className="ui form" onSubmit={this.handleSubmit}>
-            <div className="ui right labeled icon input">
-              <input type="name" name="name" onChange={this.handleChange} value={this.state.name} />
-              <button className="ui tag label"> Add category</button>
-            </div>
-          </form>
-          <div className="ui list divided middle aligned">
-            {this.state.categories.map(cat => {
-              return (
-                <div key={cat.id} className="item">
-                  <div className="content right floated">
-                    <button className="ui icon button" onClick={() => this.removeItem(cat.id)}><i className="trash icon"></i></button>
-                  </div>
-                  <div className="content">{cat.name}</div>
-                </div>
-              )
-            })}
+      <div className="ui segment">
+        <form className="ui form" onSubmit={this.handleSubmit}>
+          <div className="ui right labeled icon input">
+            <input type="name" name="name" onChange={this.handleChange} value={this.state.name} />
+            <button className="ui tag label"> Add category</button>
           </div>
+        </form>
+        <div className="ui list divided middle aligned">
+          {this.state.categories.map(cat => {
+            return (
+              <div key={cat.id} className="item">
+                <div className="content right floated">
+                  <button className="ui icon button" onClick={() => this.removeItem(cat.id)}><i className="trash icon"></i></button>
+                </div>
+                <div className="content">{cat.name}</div>
+              </div>
+            )
+          })}
         </div>
       </div>
     )

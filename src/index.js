@@ -20,7 +20,7 @@ const routing = (
         <div className="item">
           <i className="tags icon"></i>
           <div className="content">
-            <Link to="/categories">Categories</Link>
+            <Link to="/categories">Expenses categories</Link>
           </div>
         </div>
         <div className="item">

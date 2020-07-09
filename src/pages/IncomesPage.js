@@ -6,6 +6,7 @@ export default class IncomesPage extends React.Component {
   render () {
     return (
       <div className="app">
+        <h1>Add your incomes</h1>
         <IncomesForm />
         <Table />
       </div>
