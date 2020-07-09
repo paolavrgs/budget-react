@@ -1,7 +1,6 @@
 import React from 'react';
 import setDBConfig from '../data/firebase';
-import firebase from 'firebase';
-import styles from './App.css';
+import './App.css';
 
 setDBConfig()
 

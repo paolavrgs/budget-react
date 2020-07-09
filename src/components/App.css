@@ -11,14 +11,15 @@
   position: fixed;
   box-shadow: 0px 0px 10px rgba(0,0,0,.1);
   padding: 20px !important;
-  color: #23C6AE;
+  color: #fff;
+  background-color: #001034;
 }
 
 .app-sidebar .item {
-  margin-bottom: 10px;
+  margin: 30px 0;
 }
 
 .app-sidebar a, .app-sidebar i {
-  color: #23C6AE;
+  color: #fff;
   font-size: 16px;
 }

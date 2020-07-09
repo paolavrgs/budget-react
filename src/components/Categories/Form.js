@@ -53,10 +53,10 @@ export default class CategoryForm extends React.Component {
     return (
       <div className="app">
         <div className="ui segment">
-          <form className="ui form">
+          <form className="ui form" onSubmit={this.handleSubmit}>
             <div className="ui right labeled icon input">
               <input type="name" name="name" onChange={this.handleChange} value={this.state.name} />
-              <a className="ui tag label" onClick={this.handleSubmit}> Add category</a>
+              <button className="ui tag label"> Add category</button>
             </div>
           </form>
           <div className="ui list divided middle aligned">
